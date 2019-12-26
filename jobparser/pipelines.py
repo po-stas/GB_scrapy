@@ -4,6 +4,7 @@ from jobparser.items import JobparserItem
 from typing import Dict
 import re
 from pymongo import MongoClient
+from pymongo import errors
 
 # Define your item pipelines here
 #
@@ -22,7 +23,13 @@ class JobparserPipeline(object):
         result.update(item)
         del result['salary']
         result.update(salary)
-        # self.db[spider.name].insert_one(result)
+        result['source'] = spider.name
+
+        try:
+            self.db[spider.name].insert_one(result)
+        except(errors.WriteError, errors.WriteConcernError) as e:
+            print('ERROR inserting the row %s' % str(result))
+            print(e)
 
         return item
 

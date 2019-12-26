@@ -5,7 +5,7 @@ from jobparser.items import JobparserItem
 
 
 class HhruSpider(scrapy.Spider):
-    name = 'hhru'
+    name = 'hh.ru'
     allowed_domains = ['hh.ru']
     start_urls = ['https://hh.ru/search/vacancy?area=1&st=searchVacancy&text=python&page=0']
 

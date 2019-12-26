@@ -6,7 +6,7 @@ import re
 
 
 class SjruSpider(scrapy.Spider):
-    name = 'sjru'
+    name = 'superjob.ru'
     allowed_domains = ['superjob.ru']
     start_urls = ['https://www.superjob.ru/vacancy/search/?keywords=Python&geo%5Bc%5D%5B0%5D=1']
 
