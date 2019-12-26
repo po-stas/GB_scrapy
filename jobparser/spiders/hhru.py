@@ -17,9 +17,9 @@ class HhruSpider(scrapy.Spider):
         for vacancy in vacancies:
             yield response.follow(vacancy.extract(), callback=self.vacancy_parse)
 
-
-    def vacancy_parse(self, responce:HtmlResponse):
-        result = {}
+    @staticmethod
+    def vacancy_parse(responce:HtmlResponse):
+        result = dict()
         result['title'] = ''.join(responce.xpath('//div[contains(@class, "vacancy-title")]/h1/span/text()').extract())
         if not result['title']:
             result['title'] = ''.join(responce.xpath('//div[contains(@class, "vacancy-title")]/h1/text()').extract())
