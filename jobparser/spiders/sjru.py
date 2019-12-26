@@ -2,6 +2,7 @@
 import scrapy
 from scrapy.http import HtmlResponse
 from jobparser.items import JobparserItem
+import re
 
 
 class SjruSpider(scrapy.Spider):
@@ -20,7 +21,9 @@ class SjruSpider(scrapy.Spider):
     @staticmethod
     def vacancy_parse(responce:HtmlResponse):
         result = dict()
-        result['title'] = responce.xpath('//h1[@class="_3mfro rFbjy s1nFK _2JVkc"]//text()').extract()
-        result['salary'] = responce.xpath('//span[@class="_3mfro _2Wp8I ZON4b PlM3e _2JVkc"]//text()').extract()
+        result['title'] = ''.join(responce.xpath('//h1[@class="_3mfro rFbjy s1nFK _2JVkc"]//text()').extract())
+        salary = ''.join(responce.xpath('//span[@class="_3mfro _2Wp8I ZON4b PlM3e _2JVkc"]//text()').extract())
+        salary = salary.replace('\xa0—\xa0', '-')
+        result['salary'] = re.sub(r'(\d+)\xa0(\d+)', r'\1\2', salary).replace('\xa0', ' ')
         result['link'] = responce.url
         yield JobparserItem(result)

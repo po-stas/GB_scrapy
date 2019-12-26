@@ -22,7 +22,7 @@ class JobparserPipeline(object):
         result.update(item)
         del result['salary']
         result.update(salary)
-        self.db[spider.name].insert_one(result)
+        # self.db[spider.name].insert_one(result)
 
         return item
 
