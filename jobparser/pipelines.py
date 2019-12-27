@@ -13,9 +13,11 @@ from pymongo import errors
 
 
 class JobparserPipeline(object):
-    def __init(self):
+    def __init__(self):
         client = MongoClient('localhost', 27017)
         self.db = client['scrapyDB']
+        self.db["superjob.ru"].drop()
+        self.db['hh.ru'].drop()
 
     def process_item(self, item:JobparserItem, spider):
         salary = self.parse_compensation(comp=item['salary'])
