@@ -15,6 +15,7 @@ for vacancy in db['hh.ru'].find({})[:10]:
 
 # Output example
 
+
 # Connected to pydev debugger (build 192.7142.56)
 
 # {'_id': ObjectId('5e059572fb21f45d6a0e7498'),
